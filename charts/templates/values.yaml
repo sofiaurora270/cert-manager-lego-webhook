@@ -4,7 +4,7 @@ nameOverride: ''
 
 webhook:
   image:
-    repository: ghcr.io/sofiaurora270/cert-manager-lego-webhook
+    repository: sofiaurora/cert-manager-lego-webhook
     tag: ''
   imagePullPolicy: IfNotPresent
   replicas: 1
