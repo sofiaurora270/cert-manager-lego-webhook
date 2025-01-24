@@ -89,7 +89,7 @@ spec:
 ```
 
 ```yaml
-# step 3: create Certificate
+# step 3a: create Certificate
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -105,4 +105,32 @@ spec:
     - lego.example.com
     - '*.lego.example.com'
 
+```
+```yaml
+# step 3b: but better yet, just tell your ingress to use the proper clusterIssuer we created just now and let it handle everything.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app: hello-world
+  name: 
+  namespace: <namespace> # if non-default namespace
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod # <- This is the magic!
+spec:
+  rules:
+  - host: example.com # your domain for kube to know
+    http:
+      paths:
+      - backend:
+          service:
+            name: <your-service>
+            port:
+              number: 80 # use appropriate port
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - example.com # your domain for cert manager to handle.
+    secretName: letsencrypt-prod # This is the other magic!
 ```
