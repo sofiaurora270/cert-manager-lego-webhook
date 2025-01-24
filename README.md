@@ -132,5 +132,5 @@ spec:
   tls:
   - hosts:
     - example.com # your domain for cert manager to handle.
-    secretName: letsencrypt-prod # This is the other magic!
+    secretName: example.com # secretname in your kube configurations
 ```
