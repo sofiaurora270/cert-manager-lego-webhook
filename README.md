@@ -94,10 +94,10 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: lego.example.com
-  namespace: cert-manager
+  namespace: cert-manager # <- this needs to be in the same namespace as your ingress
 spec:
   issuerRef:
-    name: lego-alidns # <- This is the cluserissuername you need to reference
+    name: letsencrypt-prod # <- This is the cluserissuername you need to reference
     kind: ClusterIssuer
   secretName: lego.example.com-tls
   commonName: lego.example.com
