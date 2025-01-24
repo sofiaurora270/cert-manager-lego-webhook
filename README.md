@@ -18,6 +18,8 @@ helm upgrade --install cert-manager-lego-webhook cert-manager-lego-webhook/cert-
 
 ## Usage
 
+Apply each file with `kubectl apply -f <filename>`
+
 ```yaml
 # step 1: create secret for dns provider
 kind: Secret
@@ -30,8 +32,9 @@ stringData:
   # for example, https://go-acme.github.io/lego/dns/alidns/#credentials
   ALICLOUD_ACCESS_KEY: ''
   ALICLOUD_SECRET_KEY: ''
+```
 
----
+```yaml
 # step 2a: create ClusterIssuer
 kind: ClusterIssuer
 apiVersion: cert-manager.io/v1
@@ -56,9 +59,9 @@ spec:
                 secret:
                   name: lego-alidns-secret
                   namespace: 'cert-manager' # <- if not set, use cert-manager namespace
+```
 
----
-
+```yaml
 # step 2b: create ClusterIssuer
 kind: ClusterIssuer
 apiVersion: cert-manager.io/v1
@@ -83,8 +86,9 @@ spec:
                 secret:
                   name: lego-alidns-secret
                   namespace: 'cert-manager' # <- if not set, use cert-manager namespace
+```
 
----
+```yaml
 # step 3: create Certificate
 apiVersion: cert-manager.io/v1
 kind: Certificate
